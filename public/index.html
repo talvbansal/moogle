@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="./css/app.css" />
+    <title>Moogle!</title>
+  </head>
+  <body
+    class="w-full flex flex-col items-center justify-center my-auto  h-screen w-screen"
+  >
+    <div class="pb-32" id="app">
+      <h1 class="text-6xl text-center font-serif tracking-tighter">
+        <span class="text-blue-700">M</span>
+        <span class="text-red-500">o</span>
+        <span class="text-yellow-500">o</span>
+        <span class="text-blue-700">g</span>
+        <span class="text-green-500">l</span>
+        <span class="text-red-500">e</span>
+      </h1>
+      <form @submit.prevent="submit">
+        <input
+          autofocus
+          class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal rounded-full "
+          @keydown="type"
+          v-model="query"
+          type="search"
+          placeholder="Search..."
+        />
+        <div class="flex justify-center">
+          <button
+            type="submit"
+            class="mt-4 bg-gray-100 hover:bg-gray-300 text-gray-500 py-2 px-4 rounded text-sm mr-4"
+          >
+            Search
+          </button>
+          <button
+            type="submit"
+            class="mt-4 bg-gray-100 hover:bg-gray-300 text-gray-500 py-2 px-4 rounded text-sm"
+          >
+            I'm feeling lucky
+          </button>
+        </div>
+
+        <audio ref="sound-1" src="sounds/eklee-KeyPressMac01.wav"></audio>
+        <audio ref="sound-2" src="sounds/eklee-KeyPressMac02.wav"></audio>
+        <audio ref="sound-3" src="sounds/eklee-KeyPressMac03.wav"></audio>
+        <audio ref="sound-4" src="sounds/eklee-KeyPressMac04.wav"></audio>
+        <audio ref="sound-5" src="sounds/eklee-KeyPressMac05.wav"></audio>
+        <audio ref="sound-6" src="sounds/eklee-KeyPressMac06.wav"></audio>
+        <audio ref="sound-7" src="sounds/eklee-KeyPressMac07.wav"></audio>
+      </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+      const app = new Vue({
+        el: "#app",
+        data: {
+          query: "",
+          sounds: [1, 2, 3, 4, 5, 6, 7]
+        },
+        methods: {
+          type(e) {
+            const soundNumber = this.sounds[
+              Math.floor(Math.random() * this.sounds.length)
+            ];
+            const sound = this.$refs[`sound-${soundNumber}`];
+            sound.currentTime = 0;
+            sound.play();
+          },
+
+          submit() {
+            window.location = `https://www.google.com/search?q=${this.query}`;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
