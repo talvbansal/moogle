@@ -27,6 +27,7 @@
       <form @submit.prevent="submit">
         <input
           autofocus
+          ref="search"
           class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal rounded-full "
           @keydown="type"
           v-model="query"
@@ -67,6 +68,11 @@
           query: "",
           sounds: [1, 2, 3, 4, 5, 6, 7]
         },
+
+        mounted() {
+          this.$refs.search.focus();
+        },
+
         methods: {
           type(e) {
             const soundNumber = this.sounds[
